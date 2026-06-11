@@ -1,36 +1,18 @@
+import { getTextList } from './util';
 import { type DefaultTheme } from 'vitepress';
-import fs from 'node:fs/promises';
 
-function sanitizeTitle(title: string): string {
-    return title.replace(/(\.md)$/, '')
-}
+const textItems = await getTextList('szovegek');
+const haikuItems = await getTextList('haikuk');
 
-const excemptWritingsFromSidebar: Record<string, boolean> = {
-    index: true,
-    leírás: true,
-};
-
-let writingsItems: DefaultTheme.SidebarItem[] = [];
-
-try {
-    const writingsList = await fs.readdir(`${process.cwd()}/writings`);
-    if (writingsList && writingsList.length) {
-        writingsItems = writingsList.filter((item) => !excemptWritingsFromSidebar[sanitizeTitle(item)]).map((item) => {
-            const sanitizedTitle = sanitizeTitle(item);
-            return {
-                text: sanitizedTitle, link: `/${sanitizedTitle}`
-            }
-        });
-    }
-} catch (err) {
-    console.warn(err);
-}
-
-const sidebar: DefaultTheme.SidebarItem[] = [
+const Sidebar: DefaultTheme.SidebarItem[] = [
+    {
+        text: 'haikuk',
+        items: haikuItems
+    },
     {
         text: 'szövegek',
-        items: writingsItems
-    }
+        items: textItems
+    },
 ];
 
-export default sidebar;
+export default Sidebar;
