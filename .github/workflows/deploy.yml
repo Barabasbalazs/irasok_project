@@ -39,18 +39,18 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: yarn # or pnpm / yarn
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Install dependencies
         run: yarn install # or pnpm install / yarn install / bun install
       - name: Build with VitePress
-        run: yarn run build # or pnpm docs:build / yarn docs:build / bun run docs:build
+        run: yarn run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: .vitepress/dist
 
   # Deployment job
   deploy:
