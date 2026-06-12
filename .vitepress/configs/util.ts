@@ -2,8 +2,12 @@ import { ExcemptWritingsFromSidebar } from './const';
 import { type DefaultTheme } from 'vitepress';
 import fs from 'node:fs/promises';
 
-function _sanitizeTitle(title: string): string {
-    return title.replace(/_\d{8}(\.md)$/, '')
+function _sanatizeExtensionFromTitle(title: string): string {
+    return title.replace(/\.md$/, '');
+}
+
+function _completelysanitizeTitle(title: string): string {
+    return title.replace(/_\d{8}(\.md)$/, '');
 }
 
 function YYYYMMDDToDate(dateString: string) {
@@ -18,25 +22,24 @@ export async function getTextList(directoryName: string): Promise<DefaultTheme.S
     let writingsItems: DefaultTheme.SidebarItem[] = [];
     try {
         const writingsList = await fs.readdir(`${process.cwd()}/writings/${directoryName}`);
-
         writingsList.sort((a: string, b: string) => {
-            const aDateString = a.match(/d{8}/)?.[0];
+            const aDateString = a.match(/\d{8}/)?.[0];
             if (!aDateString) return -1;
 
-            const bDateString = b.match(/d{8}/)?.[0];
+            const bDateString = b.match(/\d{8}/)?.[0];
             if (!bDateString) return 1;
 
             const bDate = new Date(bDateString);
             const aDate = new Date(aDateString);
             return aDate.valueOf() - bDate.valueOf();
         });
-
         if (writingsList && writingsList.length) {
-            writingsItems = writingsList.filter((item) => !ExcemptWritingsFromSidebar[_sanitizeTitle(item)]).map((item) => {
-                const sanitizedTitle = _sanitizeTitle(item);
+            writingsItems = writingsList.filter((item) => !ExcemptWritingsFromSidebar[_sanatizeExtensionFromTitle(item)]).map((item) => {
+                const completelySanitizedTitle = _completelysanitizeTitle(item);
+                const extensionSanitizedTitle = _sanatizeExtensionFromTitle(item);
                 return {
-                    text: sanitizedTitle, link: `/${directoryName}/${sanitizedTitle}`
-                }
+                    text: completelySanitizedTitle, link: `/${directoryName}/${extensionSanitizedTitle}`
+                };
             });
         }
     } catch (err) {

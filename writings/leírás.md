@@ -1,6 +1,6 @@
-# Mi ez?
+# ?
 
 Balázs vagyok.<br>
-Ez nem blog. Csak egy gyüjtemény ahova néha feltöltök egy-egy szöveget.<br>
-Könnyebb így megosztani.<br>
+Ez nem blog, csak egy gyüjtemény. <br> 
+Néha feltöltök ide valamit.<br>
 Remélem tetszenek.

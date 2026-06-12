@@ -8,9 +8,9 @@ hero:
   actions:
     - theme: brand
       text: szövegkhez
-      link: /célok
+      link: /haikuk/sértett_20260610
     - theme: alt
-      text: mi ez?
+      text: "?"
       link: /leírás
 ---
 
