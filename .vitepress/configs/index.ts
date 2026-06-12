@@ -12,8 +12,8 @@ const themeConfig = {
 }
 
 const VitePressConfig: UserConfig = {
+    base: '/irasok_project',
     srcDir: "writings",
-
     title: "pár szöveg",
     description: "Egy pár szöveg",
     themeConfig,
