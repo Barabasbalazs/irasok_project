@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: szövegkhez
-      link: /haikuk/sértett_20260610
+      link: /haikuk/hasadék_20260614
     - theme: alt
       text: "?"
       link: /leírás
