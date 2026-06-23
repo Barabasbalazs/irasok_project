@@ -24,14 +24,14 @@ export async function getTextList(directoryName: string): Promise<DefaultTheme.S
         const writingsList = await fs.readdir(`${process.cwd()}/writings/${directoryName}`);
         writingsList.sort((a: string, b: string) => {
             const aDateString = a.match(/\d{8}/)?.[0];
-            if (!aDateString) return -1;
+            if (!aDateString) return 1;
 
             const bDateString = b.match(/\d{8}/)?.[0];
-            if (!bDateString) return 1;
+            if (!bDateString) return -1;
 
-            const bDate = new Date(bDateString);
-            const aDate = new Date(aDateString);
-            return aDate.valueOf() - bDate.valueOf();
+            const bDate = YYYYMMDDToDate(bDateString);
+            const aDate = YYYYMMDDToDate(aDateString);
+            return bDate.valueOf() - aDate.valueOf();
         });
         if (writingsList && writingsList.length) {
             writingsItems = writingsList.filter((item) => !ExcemptWritingsFromSidebar[_sanatizeExtensionFromTitle(item)]).map((item) => {
